@@ -21,7 +21,7 @@ namespace :swagger do
 
       puts "Exporting from Grape - base class #{args[:base_class]}"
 
-      swagger_doc = Swagger::Grape::Template.generate(Module.const_get(args[:base_class]))
+      swagger_doc = Swagger::Grape::Template.generate(V1.const_get(args[:base_class]))
 
       # Get path data from Grape
 

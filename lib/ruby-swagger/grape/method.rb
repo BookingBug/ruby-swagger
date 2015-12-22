@@ -197,6 +197,8 @@ module Swagger::Grape
       @route.route_params.each do |parameter|
         next if @params[parameter.first.to_s]
 
+        next if ["App-Key", "App-Id", "Auth-Token"].include? parameter.first.to_s
+
         swag_param = Swagger::Data::Parameter.from_grape(parameter)
         next unless swag_param
 
@@ -222,6 +224,8 @@ module Swagger::Grape
         schema = root_param.schema
 
         next if @params.keys.include?(param_name)
+
+        next if ["App-Key", "App-Id", "Auth-Token"].include? parameter.first.to_s
 
         if param_name.scan(/[0-9a-zA-Z_]+/).count == 1
           #it's a simple parameter, adding it to the properties of the main object
