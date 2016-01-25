@@ -114,8 +114,6 @@ module Swagger::Grape
             end
           end
       end
-      pp "#{type} - #{swagger_type}"
-
 
       swagger_type
     end
