@@ -8,7 +8,6 @@ module Grape
       module ClassMethods
 
         def api_desc(description, options = {}, &block)
-          pp "called api desc", description,options
           default_api_options!(options)
           block.call if block_given?
           desc description, @api_options
