@@ -29,12 +29,19 @@ module Swagger::Grape
     def type_convert(type, with_definition = true)
       swagger_type = {}
 
+
       case type.downcase
         when 'string'
           swagger_type['type'] = 'string'
         when 'integer'
           swagger_type['type'] = 'integer'
         when 'array'
+          swagger_type['type'] = 'array'
+          swagger_type['items'] = {'type' => 'string'}
+        when '[integer]'
+          swagger_type['type'] = 'array'
+          swagger_type['items'] = {'type' => 'integer'}
+        when '[string]'
           swagger_type['type'] = 'array'
           swagger_type['items'] = {'type' => 'string'}
         when 'hash'
@@ -53,7 +60,8 @@ module Swagger::Grape
           swagger_type['type'] = 'string'
           STDERR.puts "Warning - I have no idea how to handle the type file. Right now I will consider this a string, but we should probably handle it..."
         when 'date'
-          swagger_type['type'] = 'date'
+          swagger_type['type'] = 'string'
+          swagger_type['format'] = 'date'
         when 'datetime'
           swagger_type['type'] = 'string'
           swagger_type['format'] = 'date-time'
@@ -106,6 +114,8 @@ module Swagger::Grape
             end
           end
       end
+      pp "#{type} - #{swagger_type}"
+
 
       swagger_type
     end
