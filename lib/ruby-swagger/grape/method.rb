@@ -132,9 +132,17 @@ module Swagger::Grape
       end
     end
 
+    def parse_route_name
+      name = @route_name.split('/')[1]
+      if name == "{company_id}"
+        return "public"
+      end
+      name
+    end
+
     #extract the tags
     def grape_tags
-      (@route.route_tags && !@route.route_tags.empty?) ? @route.route_tags : [@route_name.split('/')[1]]
+      (@route.route_tags && !@route.route_tags.empty?) ? @route.route_tags : [parse_route_name]
     end
 
     def extract_params_and_types
