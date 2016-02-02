@@ -85,6 +85,13 @@ module Grape
           @api_options[:errors]= errors_value
         end
 
+
+        @@group = nil
+        def default_group(new_value)
+          @@group = new_value
+        end
+
+
         @@headers = {}
         def default_headers(new_value)
           @@headers = new_value
@@ -137,6 +144,7 @@ module Grape
 
         def default_api_options!(options)
           @api_options = {
+              group: @@group,
               headers: @@headers,
               deprecated: @@deprecated,
               hidden: @@hidden,

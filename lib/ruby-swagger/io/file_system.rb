@@ -50,8 +50,10 @@ module Swagger::IO
       FileUtils.rm_f(file)
     end
 
-    def initialize(swagger_doc)
+    def initialize(swagger_doc, group)
       @doc = swagger_doc
+      @@default_path = @@default_path + "/" + group if group
+
     end
 
     def write!

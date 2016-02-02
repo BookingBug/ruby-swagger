@@ -12,20 +12,16 @@ namespace :swagger do
     end
 
     desc 'Generate a swagger meta documentation from Grape API definition and store it under doc/swagger'
-    task :generate_doc, [:base_class] => :environment do |t, args|
-      if args[:base_class].nil?
-        STDERR.puts "You need to pass a base class for your API"
-        STDERR.puts "For example: rake 'swagger:grape:generate_doc[ApiBase]'"
-        exit -1
-      end
+    task :generate_doc, [:group] => :environment do |t, args|
 
-      puts "Exporting from Grape - base class #{args[:base_class]}"
 
-      swagger_doc = Swagger::Grape::Template.generate(V1.const_get(args[:base_class]))
+      puts "Exporting from Grape - base class APIRoot for group #{args[:group]}"
+
+      swagger_doc = Swagger::Grape::Template.generate(V1.const_get("APIRoot"), args[:group])
 
       # Get path data from Grape
 
-      Swagger::IO::FileSystem.new(swagger_doc).write!
+      Swagger::IO::FileSystem.new(swagger_doc, args[:group]).write!
       puts "You should check your swagger meta documentation under #{Swagger::IO::FileSystem.default_path}"
     end
 

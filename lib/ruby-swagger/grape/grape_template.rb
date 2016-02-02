@@ -9,10 +9,10 @@ require 'ruby-swagger/data/security_definitions'
 module Swagger::Grape
   class Template
 
-    def self.generate(base_class)
+    def self.generate(base_class, group)
       swagger_doc = Swagger::Template.generate
 
-      routes = Swagger::Grape::Routes.new(base_class.routes)
+      routes = Swagger::Grape::Routes.new(base_class.routes, group)
 
       swagger_doc.paths = routes.to_swagger
       swagger_doc.definitions = Swagger::Data::Definitions.new

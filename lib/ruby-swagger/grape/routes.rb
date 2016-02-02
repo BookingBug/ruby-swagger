@@ -7,10 +7,11 @@ module Swagger::Grape
 
     attr_reader :types, :scopes
 
-    def initialize(routes)
+    def initialize(routes, group)
       @routes = routes
       @types = []
       @scopes = []
+      @group = group
     end
 
     def to_swagger
@@ -20,6 +21,7 @@ module Swagger::Grape
       @routes.each do |route|
 
         next if route.route_hidden == true  #implement custom "hidden" extension
+        next if route.route_group != @group
 
         swagger_path_name = swagger_path_name(route)
         paths[swagger_path_name] ||= Swagger::Grape::RoutePath.new(swagger_path_name)

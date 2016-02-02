@@ -4,6 +4,8 @@ module Swagger::IO
     def self.copy_description_old_definition(definition, old_definition)
       return if definition.nil? || old_definition.nil? || definition.class != old_definition.class
 
+      pp definition
+
       case definition
         when Hash
 
@@ -11,7 +13,7 @@ module Swagger::IO
             old_v = definition[key]
 
             if (key == 'description' || key == 'summary') && old_definition[key]
-              definition[key] = old_definition[key]
+#              definition[key] = old_definition[key]
             end
 
             if old_v.is_a?(Hash) || old_v.is_a?(Array)
