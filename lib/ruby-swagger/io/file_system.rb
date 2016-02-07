@@ -50,7 +50,7 @@ module Swagger::IO
       FileUtils.rm_f(file)
     end
 
-    def initialize(swagger_doc, group)
+    def initialize(swagger_doc, group = nil)
       @doc = swagger_doc
       @@default_path = @@default_path + "/" + group if group
 
@@ -69,7 +69,8 @@ module Swagger::IO
       Swagger::IO::FileSystem.write_file(swagger.to_yaml, 'base_doc.yml')
     end
 
-    def self.read
+    def self.read(group)
+      @@default_path = @@default_path + "/" + group if group
       doc = read_file('base_doc.yml')
 
       DOC_SUBPARTS.each do |doc_part|

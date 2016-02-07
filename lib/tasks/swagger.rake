@@ -28,10 +28,10 @@ namespace :swagger do
   end
 
   desc 'Generate a swagger 2.0-compatible documentation from the metadata stored into doc/swagger'
-  task :compile_doc do
+  task :compile_doc, [:group] => :environment do |t, args|
     puts "Compiling documentation"
 
-    Swagger::IO::FileSystem.new(Swagger::IO::FileSystem.read).compile!
+    Swagger::IO::FileSystem.new(Swagger::IO::FileSystem.read(args[:group])).compile!
 
     puts "Done. Your documentation file is #{Swagger::IO::FileSystem.default_path}/swagger.json"
   end
